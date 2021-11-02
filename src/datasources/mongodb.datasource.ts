@@ -1,6 +1,7 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
+/*lopez*/
 const config = {
   name: 'mongodb',
   connector: 'mongodb',
@@ -12,6 +13,20 @@ const config = {
   database: 'usuariosDB',
   useNewUrlParser: true
 };
+
+/*
+const config = {
+  name: 'mongodb',
+  connector: 'mongodb',
+  url: 'mongodb+srv://usuario_prog3:LhusuFrmt0xRRB7I@cluster0.0ziuo.mongodb.net/usuariosDB?retryWrites=true&w=majority',
+  host: 'localhost',
+  port: 27017,
+  user: 'usuario_prog3',
+  password: 'LhusuFrmt0xRRB7I',
+  database: 'usuariosDB',
+  useNewUrlParser: true
+};
+*/
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
