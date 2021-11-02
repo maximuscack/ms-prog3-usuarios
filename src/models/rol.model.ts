@@ -17,8 +17,11 @@ export class Rol extends Entity {
   })
   nombre: string;
 
-  @hasMany(() => Usuario, {through: {model: () => UsuariosXRol, keyFrom: 'id_rol', keyTo: 'id_usuario'}})
+  @hasMany(() => Usuario, {through: {model: () => UsuariosXRol, keyFrom: 'id_cdrol', keyTo: 'id_usuario'}})
   usuarios: Usuario[];
+
+  @hasMany(() => Usuario, {through: {model: () => UsuariosXRol, keyFrom: 'id_rol', keyTo: 'id_usuario'}})
+  id_rol_usuario: Usuario[];
 
   constructor(data?: Partial<Rol>) {
     super(data);

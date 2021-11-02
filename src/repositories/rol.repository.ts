@@ -11,7 +11,7 @@ export class RolRepository extends DefaultCrudRepository<
   RolRelations
 > {
 
-  public readonly usuarios: HasManyThroughRepositoryFactory<Usuario, typeof Usuario.prototype.id,
+  public readonly id_rol_usuario: HasManyThroughRepositoryFactory<Usuario, typeof Usuario.prototype.id,
           UsuariosXRol,
           typeof Rol.prototype.id
         >;
@@ -20,7 +20,7 @@ export class RolRepository extends DefaultCrudRepository<
     @inject('datasources.mongodb') dataSource: MongodbDataSource, @repository.getter('UsuariosXRolRepository') protected usuariosXRolRepositoryGetter: Getter<UsuariosXRolRepository>, @repository.getter('UsuarioRepository') protected usuarioRepositoryGetter: Getter<UsuarioRepository>,
   ) {
     super(Rol, dataSource);
-    this.usuarios = this.createHasManyThroughRepositoryFactoryFor('usuarios', usuarioRepositoryGetter, usuariosXRolRepositoryGetter,);
-    this.registerInclusionResolver('usuarios', this.usuarios.inclusionResolver);
+    this.id_rol_usuario = this.createHasManyThroughRepositoryFactoryFor('id_rol_usuario', usuarioRepositoryGetter, usuariosXRolRepositoryGetter,);
+    this.registerInclusionResolver('id_rol_usuario', this.id_rol_usuario.inclusionResolver);
   }
 }

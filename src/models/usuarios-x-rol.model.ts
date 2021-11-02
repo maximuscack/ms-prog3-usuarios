@@ -13,6 +13,13 @@ export class UsuariosXRol extends Entity {
   })
   id_usuario?: string;
 
+  @property({
+    type: 'string',
+    id: true,
+    generated: true,
+  })
+  id?: string;
+
   constructor(data?: Partial<UsuariosXRol>) {
     super(data);
   }

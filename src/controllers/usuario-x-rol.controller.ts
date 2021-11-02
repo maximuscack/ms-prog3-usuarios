@@ -20,7 +20,7 @@ import {
 import {UsuariosXRol} from '../models';
 import {UsuariosXRolRepository} from '../repositories';
 
-export class UsuariosXRolController {
+export class UsuarioXRolController {
   constructor(
     @repository(UsuariosXRolRepository)
     public usuariosXRolRepository : UsuariosXRolRepository,
@@ -37,7 +37,7 @@ export class UsuariosXRolController {
         'application/json': {
           schema: getModelSchemaRef(UsuariosXRol, {
             title: 'NewUsuariosXRol',
-            exclude: ['id_usuario'],
+            exclude: ['id_rol'],
           }),
         },
       },
