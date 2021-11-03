@@ -1,19 +1,33 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
-/*lopez*/
+
 const config = {
   name: 'mongodb',
   connector: 'mongodb',
-  url: 'mongodb+srv://usuario_prog3:LhusuFrmt0xRRB7I@cluster0.0ziuo.mongodb.net/usuariosDB?retryWrites=true&w=majority',
+  url: 'mongodb+srv://usuarioucaldas:qkG8PQ5iU244hMIT@cluster0.us0as.mongodb.net/usuariosDB?retryWrites=true&w=majority',
   host: 'localhost',
   port: 27017,
-  user: 'usuario_prog3',
-  password: 'LhusuFrmt0xRRB7I',
+  user: 'usuarioucaldas',
+  password: 'qkG8PQ5iU244hMIT',
   database: 'usuariosDB',
   useNewUrlParser: true
 };
-
+/*
+saldarriaga
+const config = {
+  name: 'mongodb',
+  connector: 'mongodb',
+  url: 'mongodb+srv://usuarioucaldas:qkG8PQ5iU244hMIT@cluster0.us0as.mongodb.net/usuariosDB?retryWrites=true&w=majority',
+  host: 'localhost',
+  port: 27017,
+  user: 'usuarioucaldas',
+  password: 'qkG8PQ5iU244hMIT',
+  database: 'usuariosDB',
+  useNewUrlParser: true
+};
+/*
+/*lopez*/
 /*
 const config = {
   name: 'mongodb',

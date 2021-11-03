@@ -27,6 +27,12 @@ export class Usuario extends Entity {
   })
   celular: number;
 
+  @property({
+    type: 'string',
+
+  })
+  clave: string;
+
 
   constructor(data?: Partial<Usuario>) {
     super(data);
