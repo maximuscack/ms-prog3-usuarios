@@ -18,9 +18,9 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Credenciales, Credencialescambioclave, credencialesRecuperarclave,  Usuario} from '../models';
+import {Credenciales, Credencialescambioclave, credencialesRecuperarclave,  Notificacioncorreo,  Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
-import {AdministradordeclavesService} from '../services';
+import {AdministradordeclavesService, NotificacionesService} from '../services';
 
 export class UsuarioController {
   constructor(
@@ -28,7 +28,8 @@ export class UsuarioController {
     public usuarioRepository : UsuarioRepository,
     @service(AdministradordeclavesService)
     public servicioclaves :AdministradordeclavesService,
-
+    @service(NotificacionesService)
+    public servicionotificaciones : NotificacionesService
     ) {}
 
   @post('/usuarios')
@@ -51,6 +52,11 @@ export class UsuarioController {
   ): Promise<Usuario> {
     let clave = this.servicioclaves.GenerarClaveAleatoria();
 
+    let notifficacion= new Notificacioncorreo();
+      notifficacion.destinatario= usuario.correo;
+      notifficacion.asunto = "registro en el sistema";
+      notifficacion.mensaje = `hola ${usuario.nombre} <br /> su clave de acceso al sistema es  ${clave} y su usuario es el correo electronico`;
+      this.servicionotificaciones.enviarcorreo(notifficacion);
 
     let clavecifrada = this.servicioclaves.CifrarTexto(clave);
     usuario.clave =clavecifrada;
@@ -247,6 +253,13 @@ async cambiarclave(
        usuario.clave = datos.nueva_clave;
       await this.usuarioRepository.updateById(datos.id, usuario);
       // enviar email al usuario notificando el cambio de contraseña
+      let notifficacion= new Notificacioncorreo();
+      notifficacion.destinatario= usuario.correo;
+      notifficacion.asunto = "cambio de contraseña";
+      notifficacion.mensaje = `hola ${usuario.nombre} <br /> se ha modificado su contraseña`;
+      this.servicionotificaciones.enviarcorreo(notifficacion);
+
+
       return true;
     }else {
       return false;
