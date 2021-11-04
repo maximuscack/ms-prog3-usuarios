@@ -1,3 +1,4 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -19,12 +20,16 @@ import {
 } from '@loopback/rest';
 import {Credenciales, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
+import {AdministradordeclavesService} from '../services';
 
 export class UsuarioController {
   constructor(
     @repository(UsuarioRepository)
     public usuarioRepository : UsuarioRepository,
-  ) {}
+    @service(AdministradordeclavesService)
+    public servicioclaves :AdministradordeclavesService,
+
+    ) {}
 
   @post('/usuarios')
   @response(200, {
@@ -44,6 +49,11 @@ export class UsuarioController {
     })
     usuario: Omit<Usuario, 'id'>,
   ): Promise<Usuario> {
+    let clave = this.servicioclaves.GenerarClaveAleatoria();
+
+
+    let clavecifrada = this.servicioclaves.CifrarTexto(clave);
+    usuario.clave =clavecifrada;
     return this.usuarioRepository.create(usuario);
   }
 
@@ -172,6 +182,12 @@ async identificar(
     clave: credenciales.clave
   }
   });
+
+
+  if(usuario){
+    // consumir el ms de tokens y generar uno nuevo
+    // se asignara ese token ala respuesta para el cliente
+  }
   return usuario;
 }
 

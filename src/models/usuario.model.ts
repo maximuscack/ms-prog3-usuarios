@@ -29,7 +29,7 @@ export class Usuario extends Entity {
 
   @property({
     type: 'string',
-
+    required: false
   })
   clave: string;
 
