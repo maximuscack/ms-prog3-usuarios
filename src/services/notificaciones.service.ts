@@ -1,7 +1,8 @@
 import {injectable, /* inject, */ BindingScope} from '@loopback/core';
 
 import { Notificacioncorreo } from '../models';
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
+
 import {configuraciones} from '../config/configuraciones';
 @injectable({scope: BindingScope.TRANSIENT})
 export class NotificacionesService {
@@ -15,6 +16,7 @@ export class NotificacionesService {
   async enviarcorreo(notificacion : Notificacioncorreo): Promise <boolean>{
 
     let url = `${configuraciones.url_notificaciones_email}?hash=${configuraciones.hash_notificaciones}&correo_destino=${notificacion.destinatario}&asunto=${notificacion.asunto}&mensaje=${notificacion.mensaje}`;
+    console.log(url);
   const response = await fetch(url);
   const data = await response.json();
   console.log(response)

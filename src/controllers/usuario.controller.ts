@@ -258,6 +258,7 @@ async cambiarclave(
       notifficacion.asunto = "cambio de contraseña";
       notifficacion.mensaje = `hola ${usuario.nombre} <br /> se ha modificado su contraseña`;
       this.servicionotificaciones.enviarcorreo(notifficacion);
+      
 
 
       return true;
