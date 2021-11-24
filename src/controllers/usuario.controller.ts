@@ -5,20 +5,15 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {Credenciales, Credencialescambioclave, credencialesRecuperarclave,  Notificacioncorreo,  Usuario} from '../models';
+import {configuraciones} from '../config/configuraciones';
+import {Credenciales, Credencialescambioclave, credencialesRecuperarclave, Notificacioncorreo, Notificacionsms, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 import {AdministradordeclavesService, NotificacionesService} from '../services';
 
@@ -192,9 +187,7 @@ async identificar(
 
   if(usuario){
     usuario.clave="";
-    // consumir el ms de tokens y generar uno nuevo
-    // se asignara ese token ala respuesta para el cliente
-  }
+    }
   return usuario;
 }
 
@@ -223,6 +216,11 @@ async recuperarclave(
     let clavecifrada = this.servicioclaves.CifrarTexto(clave);
     usuario.clave = clavecifrada;
     await this.usuarioRepository.updateById(usuario.id, usuario);
+//
+    let notifficacion= new Notificacionsms();
+    notifficacion.destino= usuario.celular;
+   notifficacion.mensaje = `${configuraciones.saludo_notificaciones} ${usuario.nombre} ${usuario.nombre}${configuraciones.arg_mensaje_recuperar_clave}${clave}`;
+   this.servicionotificaciones.enviarsms(notifficacion);
 
      return true;
   }
@@ -255,10 +253,10 @@ async cambiarclave(
       // enviar email al usuario notificando el cambio de contraseña
       let notifficacion= new Notificacioncorreo();
       notifficacion.destinatario= usuario.correo;
-      notifficacion.asunto = "cambio de contraseña";
-      notifficacion.mensaje = `hola ${usuario.nombre} <br /> se ha modificado su contraseña`;
+      notifficacion.asunto = configuraciones.asunto_cambio_clave;
+      notifficacion.mensaje = `${configuraciones.saludo_notificaciones} ${usuario.nombre} <br /> ${configuraciones.mensaje_cambio_clave}`;
       this.servicionotificaciones.enviarcorreo(notifficacion);
-      
+
 
 
       return true;

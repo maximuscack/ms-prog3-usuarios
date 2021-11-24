@@ -25,7 +25,7 @@ export class Usuario extends Entity {
     type: 'number',
     required: true,
   })
-  celular: number;
+  celular: string;
 
   @property({
     type: 'string',

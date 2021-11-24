@@ -6,3 +6,4 @@ export * from './usuario.model';
 export * from './usuarios-x-rol.model';
 
 export * from './notificacioncorreo.model';
+export * from './notificacionsms.model';
