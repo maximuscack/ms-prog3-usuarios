@@ -20,4 +20,8 @@ export namespace configuraciones{
 
   export const arg_destino_sms_notificaciones="destino"
   export const arg_mensaje_sms_notificaciones="mensaje"
+  export const url_crear_token="http://localhost:5001/crear-token";
+  export const arg_nombre_token= "nombre"
+  export const arg_id_persona_token= "id"
+  export const arg_id_rol_token= "id_rol"
 }

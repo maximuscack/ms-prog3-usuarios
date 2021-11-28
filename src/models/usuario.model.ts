@@ -33,6 +33,12 @@ export class Usuario extends Entity {
   })
   clave: string;
 
+  @property({
+    type: 'number',
+    required: false
+  })
+  rolTemporal: number;
+
 
   constructor(data?: Partial<Usuario>) {
     super(data);
